@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="VcsDirectoryMappings">
-    <mapping directory="$PROJECT_DIR$/Arraylist" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Arraylist" vcs="" />
     <mapping directory="$PROJECT_DIR$/Java-Lab-1" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Java-Lab-2" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Java-Lab-3" vcs="Git" />
@@ -12,6 +13,6 @@
     <mapping directory="$PROJECT_DIR$/Java-Lab-8" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Java-Lab-9" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Java2-Lab-2" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Practice" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Practice" vcs="" />
   </component>
 </project>

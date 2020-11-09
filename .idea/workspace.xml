@@ -20,20 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83d2cd81-9784-4097-9958-a258c0e8d150" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Java-Lab-7/src/BookRepository/Book.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Java-Lab-7/src/BookRepository/BookRepositoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arraylist/Arraylist.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java-Lab-1/Java-Lab-1.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java-Lab-2/Java-Lab-2.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java-Lab-3/Java-Lab-3.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java-Lab-4/Java-Lab-4.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java-Lab-5/Java-Lab-5.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java-Lab-6/Java-Lab-6.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java-Lab-7/Java-Lab-7.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java-Lab-8/Java-Lab-8.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java-Lab-9/Java-Lab-9.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java2-Lab-2/Java2-Lab-2.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Practice/Practice.iml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/Java2-Lab-5/src/Exercises_1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Java2-Lab-5/src/giftshop/giftController/giftController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Java2-Lab-5/src/giftshop/giftmodel/Gift.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Java2-Lab-5/src/jdbcInsertTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +36,7 @@
     <option name="done" value="true" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Arraylist" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
@@ -59,19 +51,8 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -82,6 +63,8 @@
       <option name="presentableId" value="Default" />
       <updated>1604329548660</updated>
       <workItem from="1604329549734" duration="22000" />
+      <workItem from="1604951763243" duration="109000" />
+      <workItem from="1604951886649" duration="322000" />
     </task>
     <servers />
   </component>
@@ -98,5 +81,15 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LIMIT_HISTORY" value="false" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="461" y="169" key="SettingsEditor" timestamp="1604952209519">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="461" y="169" key="SettingsEditor/1920.108.864.1512/0.0.1920.1050@0.0.1920.1050" timestamp="1604952209519" />
   </component>
 </project>
