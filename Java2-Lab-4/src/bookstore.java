@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class bookstore {
     private static final String connURL = "jdbc:mysql://localhost:3306/ebookstore";
@@ -81,13 +82,18 @@ public class bookstore {
                 int total = (int) (price*amount);
                 float caldiscount = (total*discount)/100;
                 if (amount <= qty){
-                    String newOrder = "INSERT INTO `orders` (`orderID`, `customerID`, `discount`, `total`, `orderdate`, `status`, `createddate`, `updateddate`) " +
-                            "VALUES ("+orderID+", "+inputID+","+discount+ ", " +caldiscount+ ", CURRENT_DATE(), "+status+ ", CURRENT_DATE(), CURRENT_DATE());" +
-                            "INSERT INTO `orderdetail` (`orderID`, `bookID`, `title`, `amount`, `price`, `createddate`, `updateddate`) " +
-                            "VALUES ("+orderID+ ", "+bookID+ ", \""+title+ "\", "+amount+ ", "+price+", CURRENT_DATE(), CURRENT_DATE());" +
-                            "UPDATE `books` SET `qty` = "+(qty-amount)+ ", `updateddate` = CURDATE() WHERE `books`.`bookID` = "+bookID+" AND `books`.`title` = \""+title+"\";";
+                    String newOrder = "INSERT INTO `orders` (`orderID`, `customerID`, `discount`, `total`, `orderdate`, `status`, `createddate`, `updateddate`) VALUES ("+orderID+", "+inputID+","+discount+ ", " +caldiscount+ ", CURRENT_DATE(), "+status+ ", CURRENT_DATE(), CURRENT_DATE());";
+
+                    String newOrderdetail = "INSERT INTO `orderdetail` (`orderID`, `bookID`, `title`, `amount`, `price`, `createddate`, `updateddate`) VALUES ("+orderID+ ", "+bookID+ ", \""+title+ "\", "+amount+ ", "+price+", CURRENT_DATE(), CURRENT_DATE());";
+
+                    String newUpdatebooks = "UPDATE `books` SET `qty` = "+(qty-amount)+ ", `updateddate` = CURDATE() WHERE `books`.`bookID` = "+bookID+" AND `books`.`title` = \""+title+"\";";
+
                     System.out.println(newOrder);
+                    System.out.println(newOrderdetail);
+                    System.out.println(newUpdatebooks);
                     stmt.executeUpdate(newOrder);
+                    stmt.executeUpdate(newOrderdetail);
+                    stmt.executeUpdate(newUpdatebooks);
                     System.out.println("order book successfully! Thank you!");
                 }
                 else {
@@ -105,29 +111,35 @@ public class bookstore {
 
 
     }
-    public static void memberRegist(){
+    public static void memberRegist() throws InterruptedException {
+        int customerID;
+        String customerName;
+        String customerAddress;
+        String customerEmail;
+        String customerPhone;
+        Scanner input = new Scanner(System.in);
+        System.out.println("****Add New Member****");
+        System.out.printf("Enter ID: ");
+        customerID = input.nextInt();
+        input.nextLine();
+        System.out.printf("Enter name: ");
+        customerName = input.nextLine();
+        System.out.printf("Enter address: ");
+        customerAddress = input.nextLine();
+        System.out.printf("Enter Email: ");
+        customerEmail = input.nextLine();
+        System.out.printf("Enter phone number: ");
+        customerPhone = input.nextLine();
+        System.out.printf("Connecting.");
+        for (int i = 0; i<5; i++){
+            TimeUnit.SECONDS.sleep(1);
+            System.out.printf(".");
+        }
         try (
                 Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
                 Statement stmt = conn.createStatement();
                 ) {
-            int customerID;
-            String customerName;
-            String customerAddress;
-            String customerEmail;
-            String customerPhone;
-            Scanner input = new Scanner(System.in);
-            System.out.println("****Add New Member****");
-            System.out.printf("Enter ID: ");
-            customerID = input.nextInt();
-            input.nextLine();
-            System.out.printf("Enter name: ");
-            customerName = input.nextLine();
-            System.out.printf("Enter address: ");
-            customerAddress = input.nextLine();
-            System.out.printf("Enter Email: ");
-            customerEmail = input.nextLine();
-            System.out.printf("Enter phone number: ");
-            customerPhone = input.nextLine();
+
 
             String sqlInsert = "INSERT INTO customers(customerID, name, address, email, phone) VALUES ("+customerID+", \""+customerName+"\", \""+customerAddress+"\", \""+customerEmail+"\", \""+customerPhone+"\")";
             int countInserted = stmt.executeUpdate(sqlInsert);
@@ -137,7 +149,7 @@ public class bookstore {
             throwables.printStackTrace();
         }
     }
-    public static void login(){
+    public static void login() throws InterruptedException {
 
 
         Scanner input = new Scanner(System.in);
@@ -146,6 +158,11 @@ public class bookstore {
         input.nextLine();
         System.out.printf("Enter your Email: ");
         inputEmail = input.nextLine();
+        System.out.printf("Connecting.");
+        for (int i = 0; i<5; i++){
+            TimeUnit.SECONDS.sleep(1);
+            System.out.printf(".");
+        }
         try(
                 Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
                 Statement stmt = conn.createStatement();
@@ -252,7 +269,7 @@ public class bookstore {
         }
     }
 
-        public static void main(String[] args) {
+        public static void main(String[] args) throws InterruptedException {
         int choice;
         boolean quit = false;
         Scanner input = new Scanner(System.in);

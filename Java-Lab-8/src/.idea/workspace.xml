@@ -19,8 +19,16 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83d2cd81-9784-4097-9958-a258c0e8d150" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="7093d38c-b88a-4d10-b43c-68e2d8f61709" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../AtomicTransaction/AtomicTransaction.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../AtomicTransaction/src/AtomicTransaction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Java2-Lab-4/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../demo-metadata/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java2-Lab-4/out/production/Java2-Lab-4/bookstore.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java2-Lab-4/out/production/Java2-Lab-4/bookstore.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java2-Lab-4/src/bookstore.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java2-Lab-4/src/bookstore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java2-Lab-5/out/production/Java2-Lab-5/Exercises_1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java2-Lab-5/src/giftshop/giftController/giftController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java2-Lab-5/src/giftshop/giftController/giftController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,12 +39,12 @@
     <option name="done" value="true" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
   </component>
-  <component name="ProjectId" id="1jjtuEY1Q2WVUaqfSIqbpkbymV5" />
+  <component name="ProjectId" id="1k82zpJesNxcHQZ9BQK1nYD7YC2" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -46,26 +54,19 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Java2-Lab-5" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="83d2cd81-9784-4097-9958-a258c0e8d150" name="Default Changelist" comment="" />
-      <created>1604329548660</created>
+      <changelist id="7093d38c-b88a-4d10-b43c-68e2d8f61709" name="Default Changelist" comment="" />
+      <created>1605068162697</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1604329548660</updated>
-      <workItem from="1604329549734" duration="22000" />
-      <workItem from="1604951763243" duration="109000" />
-      <workItem from="1604951886649" duration="365000" />
-      <workItem from="1604952267431" duration="59000" />
+      <updated>1605068162697</updated>
+      <workItem from="1605068163969" duration="10000" />
     </task>
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -77,19 +78,11 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="LIMIT_HISTORY" value="false" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="740" y="279" key="FileChooserDialogImpl" timestamp="1604952324770">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="549" y="172" key="FileChooserDialogImpl" timestamp="1605068171844">
+      <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="740" y="279" key="FileChooserDialogImpl/1920.108.864.1512/0.0.1920.1050@0.0.1920.1050" timestamp="1604952324770" />
-    <state x="461" y="169" key="SettingsEditor" timestamp="1604952209519">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state x="461" y="169" key="SettingsEditor/1920.108.864.1512/0.0.1920.1050@0.0.1920.1050" timestamp="1604952209519" />
+    <state x="549" y="172" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1605068171844" />
   </component>
 </project>

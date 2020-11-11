@@ -53,11 +53,6 @@ public class Gift {
 
     @Override
     public String toString() {
-        return "Gift{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", qty=" + qty +
-                '}';
+        return "INSERT INTO gift VALUES ( " + id + ", '" + name + "', " +price + ", " + qty +")";
     }
 }
