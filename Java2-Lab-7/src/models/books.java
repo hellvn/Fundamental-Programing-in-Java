@@ -1,3 +1,5 @@
+package models;
+
 public class books {
     private int bookID;
     private String title;
@@ -6,8 +8,10 @@ public class books {
     private int qty;
     private float price;
     private int status;
+    private String created;
+    private String updated;
 
-    public books(int bookID, String title, String author, int published, int qty, float price, int status) {
+    public books(int bookID, String title, String author, int published, int qty, float price, int status, String created, String updated) {
         this.bookID = bookID;
         this.title = title;
         this.author = author;
@@ -15,6 +19,29 @@ public class books {
         this.qty = qty;
         this.price = price;
         this.status = status;
+        this.created = created;
+        this.updated = updated;
+    }
+
+    public books(int bookID, String title, String author, int published, int qty, float price) {
+        this.bookID = bookID;
+        this.title = title;
+        this.author = author;
+        this.published = published;
+        this.qty = qty;
+        this.price = price;
+
+    }
+    public books(){
+        bookID=0;
+        title="";
+        author="";
+        published=0;
+        qty=0;
+        price=0;
+        status=0;
+        created="";
+        updated="";
     }
 
     public int getBookID() {
@@ -75,6 +102,6 @@ public class books {
 
     @Override
     public String toString() {
-        return "INSERT INTO books (`title`, `author`, `published`, `qty`, `price`) VALUES ('"+title+"', "+author+"', "+published+", "+qty+", "+price+")";
+        return String.format("%-30d%-30s%-30s%-30d%-30d%-30d%-30f%-30s%-30s\n",bookID,title,author,published,status,qty,price,created,updated);
     }
 }
