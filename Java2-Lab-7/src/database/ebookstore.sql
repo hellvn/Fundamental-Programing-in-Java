@@ -20,6 +20,9 @@ SET time_zone = "+00:00";
 --
 -- Database: `ebookstore`
 --
+DROP database IF EXISTS ebookstore;
+CREATE database ebookstore;
+USE ebookstore;
 
 -- --------------------------------------------------------
 
