@@ -75,6 +75,6 @@ public class books {
 
     @Override
     public String toString() {
-        return "INSERT INTO books VALUES ("+bookID+", '"+title+"', "+author+"', "+published+", "+qty+", "+price+", "+status+")";
+        return "INSERT INTO books (`title`, `author`, `published`, `qty`, `price`) VALUES ('"+title+"', "+author+"', "+published+", "+qty+", "+price+")";
     }
 }

@@ -25,31 +25,28 @@ public class bookcontroler {
             username = input.nextLine();
             System.out.printf("Password: ");
             String password = input.nextLine();
-            System.out.printf("Connecting.");
-            for (int i = 0; i < 5; i++) {
-                TimeUnit.SECONDS.sleep(1);
-                System.out.printf(".");
+            System.out.printf("Retype Password: ");
+            String password2 = input.nextLine();
+            if(password == password2){
+                user sqlregist = new user(username, password);
+                stmt.executeUpdate(String.valueOf(sqlregist));
+                System.out.println("\nSign Up Success!\n");
+                fillinfo();
             }
-            user sqlregist = new user(username, password);
-            stmt.executeUpdate(String.valueOf(sqlregist));
-            System.out.println("\nSign Up Success!\n");
-            fillinfo();
-        } catch (SQLException | InterruptedException exception) {
+            else
+                System.out.println("Password not match!");
+
+        } catch (SQLException exception) {
             exception.printStackTrace();
         }
     }
 
-    public void login() throws InterruptedException {
+    public void login() {
         System.out.println("\n=====LOGIN=====\n");
         System.out.printf("Username: ");
         String username = input.nextLine();
         System.out.printf("Password: ");
         String password = input.nextLine();
-        System.out.printf("Connecting.");
-        for (int i = 0; i < 5; i++) {
-            TimeUnit.SECONDS.sleep(1);
-            System.out.printf(".");
-        }
         try (
                 Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
                 Statement stmt = conn.createStatement();
