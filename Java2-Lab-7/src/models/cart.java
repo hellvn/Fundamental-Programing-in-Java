@@ -15,10 +15,9 @@ public class cart {
         this.discount = 0;
     }
 
-    public cart(int bookID, String title, int qty) {
+    public cart(int bookID, int amount) {
         this.bookID = bookID;
-        this.title = title;
-        this.qty = qty;
+        this.amount = amount;
     }
 
     public cart(int bookID, String title, int qty, int amount, int discount) {

@@ -11,8 +11,8 @@ public class cartcontroler {
     private static final String connPass = "";
     private static ResultSet rset;
 
-    public cart addtocart(books books){
-        cart cart = new cart();
+    public cart loadcart(books books){
+        cart obj = new cart();
         try (
                 Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
                 Statement stmt = conn.createStatement();
@@ -29,18 +29,17 @@ public class cartcontroler {
                 id = rset.getInt("bookID");
                 title = rset.getString("title");
                 price = rset.getDouble("price");
-
                 row++;
             }
             if(row==0){
                 System.out.println("No book with entered ID");
                 return null;
             }else
-                cart = new cart(id, title, price, books.getQty());
+                obj = new cart(id, books.getQty());
         }
         catch (SQLException exception) {
             exception.printStackTrace();
         }
-        return cart;
+        return obj;
     }
 }
