@@ -24,25 +24,21 @@ public class bookShop {
                     "2- Search a book\n" +
                     "3- Show top 10 new book\n" +
                     "4- Show top 10 sold book\n" +
-                    "5- Quit");
+                    "5- Login\n" +
+                    "6- Register\n" +
+                    "7- Quit");
             System.out.printf("Your choice: ");
             choice = input.nextInt();
             switch (choice) {
                 case 1:
                     bookcontroler bookcontroler1 = new bookcontroler();
                     bookcontroler1.displayBook();
-                    System.out.printf("Buy a book?(Y/N): ");
-                    cont = input.next().charAt(0);
-                    if (cont == 'y' || cont == 'Y'){
-                        cartview.addtocart(new cart());
-                    }
                     break;
                 case 2:
-                    ;
                     break;
                 case 3:
-
-                case 5:
+                    break;
+                case 7:
                     quit = true;
                     break;
             }
