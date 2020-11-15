@@ -3,188 +3,13 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class bookstore {
-    private static final String connURL = "jdbc:mysql://localhost:3306/ebookstore";
+    private static final String connURL = "jdbc:mysql://localhost:3306/ebookstore2";
     private static final String connUser = "root";
     private static final String connPass = "";
     private static ResultSet rset;
-    private static int inputID;
-    private static String inputEmail;
     private static ResultSetMetaData rsMD;
-    public static void addbook(){
-        try(
-                Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
-                Statement stmt = conn.createStatement()
-        ){
-            int bookID;
-            String title;
-            String author;
-            int years;
-            byte status;
-            int qty;
-            float price;
-            Scanner input = new Scanner(System.in);
-            System.out.println("****Add New Book****");
-            System.out.printf("Enter book ID: ");
-            bookID = input.nextInt();
-            input.nextLine();
-            System.out.printf("Enter book Title: ");
-            title = input.nextLine();
-            System.out.printf("Enter book Author: ");
-            author = input.nextLine();
-            System.out.printf("Enter Published year: ");
-            years = input.nextInt();
-            System.out.printf("Enter Status (1-5): ");
-            status = input.nextByte();
-            System.out.printf("Enter Qty: ");
-            qty = input.nextInt();
-            System.out.printf("Enter book price: ");
-            price = input.nextFloat();
 
-            String sqlInsert = "INSERT INTO books(bookid, title, author, years, status, qty, price) VALUES ("+bookID+", \""+title+"\", \""+author+"\", "+years+", "+status+", "+qty+", "+price+")";
-            System.out.println(sqlInsert);
-            int countInserted = stmt.executeUpdate(sqlInsert);
-            System.out.println(countInserted + " Book inserted.\n");
-            menu();
-        }
-        catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-    public static void orderbook(){
-        try(
-                Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
-                Statement stmt = conn.createStatement();
-        ){
-            String checkBookID = "SELECT bookID FROM books WHERE bookID=?";
-
-            Scanner input = new Scanner(System.in);
-
-            System.out.println("****Order a book****");
-            System.out.printf("Enter book ID: ");
-            int bookID = input.nextInt();
-            PreparedStatement stm = conn.prepareStatement(checkBookID);
-            stm.setInt(1,bookID);
-            rset = stm.executeQuery();
-            if (rset.next()){
-                System.out.printf("Enter order ID: ");
-                int orderID = input.nextInt();
-                System.out.printf("Enter amount: ");
-                int amount = input.nextInt();
-                System.out.printf("Enter discount: ");
-                int discount = input.nextInt();
-                String checkAmount = "SELECT title, status, qty, price FROM books WHERE bookID="+bookID;
-                ResultSet rset2 = stmt.executeQuery(checkAmount);
-                rset2.next();
-                String title = rset2.getString("title");
-                int status = rset2.getInt("status");
-                int qty = rset2.getInt("qty");
-                float price = rset2.getFloat("price");
-                int total = (int) (price*amount);
-                float caldiscount = (total*discount)/100;
-                if (amount <= qty){
-                    String newOrder = "INSERT INTO `orders` (`orderID`, `customerID`, `discount`, `total`, `orderdate`, `status`, `createddate`, `updateddate`) VALUES ("+orderID+", "+inputID+","+discount+ ", " +caldiscount+ ", CURRENT_DATE(), "+status+ ", CURRENT_DATE(), CURRENT_DATE());";
-
-                    String newOrderdetail = "INSERT INTO `orderdetail` (`orderID`, `bookID`, `title`, `amount`, `price`, `createddate`, `updateddate`) VALUES ("+orderID+ ", "+bookID+ ", \""+title+ "\", "+amount+ ", "+price+", CURRENT_DATE(), CURRENT_DATE());";
-
-                    String newUpdatebooks = "UPDATE `books` SET `qty` = "+(qty-amount)+ ", `updateddate` = CURDATE() WHERE `books`.`bookID` = "+bookID+" AND `books`.`title` = \""+title+"\";";
-
-                    System.out.println(newOrder);
-                    System.out.println(newOrderdetail);
-                    System.out.println(newUpdatebooks);
-                    stmt.executeUpdate(newOrder);
-                    stmt.executeUpdate(newOrderdetail);
-                    stmt.executeUpdate(newUpdatebooks);
-                    System.out.println("order book successfully! Thank you!");
-                }
-                else {
-                    System.out.printf("The amount of books in stock is not enough!");
-                }
-            }
-            else{
-                System.out.println("Book ID not found!");
-            }
-
-        }
-        catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-
-
-    }
-    public static void memberRegist() throws InterruptedException {
-        int customerID;
-        String customerName;
-        String customerAddress;
-        String customerEmail;
-        String customerPhone;
-        Scanner input = new Scanner(System.in);
-        System.out.println("****Add New Member****");
-        System.out.printf("Enter ID: ");
-        customerID = input.nextInt();
-        input.nextLine();
-        System.out.printf("Enter name: ");
-        customerName = input.nextLine();
-        System.out.printf("Enter address: ");
-        customerAddress = input.nextLine();
-        System.out.printf("Enter Email: ");
-        customerEmail = input.nextLine();
-        System.out.printf("Enter phone number: ");
-        customerPhone = input.nextLine();
-        System.out.printf("Connecting.");
-        for (int i = 0; i<5; i++){
-            TimeUnit.SECONDS.sleep(1);
-            System.out.printf(".");
-        }
-        try (
-                Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
-                Statement stmt = conn.createStatement();
-                ) {
-
-
-            String sqlInsert = "INSERT INTO customers(customerID, name, address, email, phone) VALUES ("+customerID+", \""+customerName+"\", \""+customerAddress+"\", \""+customerEmail+"\", \""+customerPhone+"\")";
-            int countInserted = stmt.executeUpdate(sqlInsert);
-            System.out.println(countInserted + " Member registered.\n");
-        }
-        catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-    public static void login() throws InterruptedException {
-
-
-        Scanner input = new Scanner(System.in);
-        System.out.printf("Enter your ID: ");
-        inputID = input.nextInt();
-        input.nextLine();
-        System.out.printf("Enter your Email: ");
-        inputEmail = input.nextLine();
-        System.out.printf("Connecting.");
-        for (int i = 0; i<5; i++){
-            TimeUnit.SECONDS.sleep(1);
-            System.out.printf(".");
-        }
-        try(
-                Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
-                Statement stmt = conn.createStatement();
-        ){
-            String sqlSelect = "SELECT customerID, email FROM customers WHERE customerID=? AND email=?";
-            PreparedStatement stm = conn.prepareStatement(sqlSelect);
-            stm.setInt(1, inputID);
-            stm.setString(2, inputEmail);
-            ResultSet rSet = stm.executeQuery();
-            if(rSet.next()){
-                System.out.println("\nLogin Success!\n");
-                menu();
-            }
-            else {
-                System.out.println("\nLogin Failed!\n");
-            }
-        }
-        catch (SQLException ex){
-            ex.printStackTrace();
-        }
-    }
-    public static void top10newbook() {
+    public void top10newbook() {
         try (
                 Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
                 Statement stmt = conn.createStatement();
@@ -208,7 +33,7 @@ public class bookstore {
             throwables.printStackTrace();
         }
     }
-    public static void top100selled(){
+    public void top100selled(){
         try (
                 Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
                 Statement stmt = conn.createStatement();
@@ -237,59 +62,417 @@ public class bookstore {
         }
 
     }
-    public static void menu(){
-        int choice;
-        boolean quit = false;
+    public void searchbycategory(){
         Scanner input = new Scanner(System.in);
-        while (!quit){
-            System.out.println("1- Top 10 newest book\n" +
-                    "2- Top 100 selled book\n" +
-                    "3- Add book\n" +
-                    "4- Order book\n" +
-                    "5- Logout");
-            System.out.printf("Your choice: ");
-            choice = input.nextInt();
-            switch (choice){
-                case 1:
-                    top10newbook();
-                    break;
-                case 2:
-                    top100selled();
-                    break;
-                case 3:
-                    addbook();
-                    break;
-                case 4:
-                    orderbook();
-                    break;
-                case 5:
-                    quit =  true;
-                    break;
+        System.out.printf("Enter category code to search: ");
+        int categorycode = input.nextByte();
+        try (
+                Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
+                Statement stmt = conn.createStatement();
+        ) {
+            String sqlSelect = "SELECT * FROM books where category="+categorycode;
+            rset = stmt.executeQuery(sqlSelect);
+            if (rset.next()){
+                rsMD = rset.getMetaData();
+                int numColumn = rsMD.getColumnCount();
+                for (int i =1; i<= numColumn; i++){
+                    System.out.printf("%-25s", rsMD.getColumnName(i));
+                }
+                System.out.println();
+                for (int i=1; i<=numColumn; ++i){
+                    System.out.printf("%-25s", rset.getString(i));
+                }
+                System.out.println();
+
             }
+            else {
+                System.out.println("Invalid category!");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public void searchbyauthor(){
+        Scanner input = new Scanner(System.in);
+        System.out.printf("Enter author name to search: ");
+        String categorycode = input.nextLine();
+        try (
+                Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
+                Statement stmt = conn.createStatement();
+        ) {
+            String sqlSelect = "SELECT * FROM books where author='"+categorycode+"'";
+            rset = stmt.executeQuery(sqlSelect);
+            if (rset.next()){
+                rsMD = rset.getMetaData();
+                int numColumn = rsMD.getColumnCount();
+                for (int i =1; i<= numColumn; i++){
+                    System.out.printf("%-25s", rsMD.getColumnName(i));
+                }
+                System.out.println();
+                for (int i=1; i<=numColumn; ++i){
+                    System.out.printf("%-25s", rset.getString(i));
+                }
+                System.out.println();
+
+            }
+            else {
+                System.out.println("Invalid author name!");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public void searchbyid(){
+        Scanner input = new Scanner(System.in);
+        System.out.printf("Enter bookID to search: ");
+        int bookID = input.nextInt();
+        try (
+                Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
+                Statement stmt = conn.createStatement();
+        ) {
+            String sqlSelect = "SELECT * FROM books where bookID="+bookID;
+            rset = stmt.executeQuery(sqlSelect);
+            if (rset.next()){
+                rsMD = rset.getMetaData();
+                int numColumn = rsMD.getColumnCount();
+                for (int i =1; i<= numColumn; i++){
+                    System.out.printf("%-25s", rsMD.getColumnName(i));
+                }
+                System.out.println();
+                for (int i=1; i<=numColumn; ++i){
+                    System.out.printf("%-25s", rset.getString(i));
+                }
+                System.out.println();
+
+            }
+            else {
+                System.out.println("Invalid bookID!");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public void viewneworder(){
+        try (
+                Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
+                Statement stmt = conn.createStatement();
+        ) {
+            String sqlSelect = "SELECT * FROM orders where status = 1 order by orderdate limit 30";
+            rset = stmt.executeQuery(sqlSelect);
+            rsMD = rset.getMetaData();
+            int numColumn = rsMD.getColumnCount();
+            System.out.println("=====30 new order=====");
+            for (int i =1; i<= numColumn; i++){
+                System.out.printf("%-25s", rsMD.getColumnName(i));
+            }
+            System.out.println();
+            while (rset.next()){
+                for (int i=1; i<=numColumn; ++i){
+                    System.out.printf("%-25s", rset.getString(i));
+                }
+                System.out.println();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public void vieworderbycustomer(){
+        Scanner input = new Scanner(System.in);
+        System.out.printf("Enter customerID: ");
+        int customer = input.nextInt();
+        try (
+                Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
+                Statement stmt = conn.createStatement();
+        ) {
+            String sqlSelect = "SELECT * FROM orders where customerID="+customer;
+            rset = stmt.executeQuery(sqlSelect);
+            if (rset.next()){
+                rsMD = rset.getMetaData();
+                int numColumn = rsMD.getColumnCount();
+                for (int i =1; i<= numColumn; i++){
+                    System.out.printf("%-25s", rsMD.getColumnName(i));
+                }
+                System.out.println();
+                for (int i=1; i<=numColumn; ++i){
+                    System.out.printf("%-25s", rset.getString(i));
+                }
+                System.out.println();
+
+            }
+            else {
+                System.out.println("Invalid customerID!");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public void vieworderbyid(){
+        Scanner input = new Scanner(System.in);
+        System.out.printf("Enter orderID: ");
+        int orderID = input.nextInt();
+        try (
+                Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
+                Statement stmt = conn.createStatement();
+        ) {
+            String sqlSelect = "SELECT * FROM orders where orderID="+orderID;
+            rset = stmt.executeQuery(sqlSelect);
+            if (rset.next()){
+                rsMD = rset.getMetaData();
+                int numColumn = rsMD.getColumnCount();
+                for (int i =1; i<= numColumn; i++){
+                    System.out.printf("%-25s", rsMD.getColumnName(i));
+                }
+                System.out.println();
+                for (int i=1; i<=numColumn; ++i){
+                    System.out.printf("%-25s", rset.getString(i));
+                }
+                System.out.println();
+
+            }
+            else {
+                System.out.println("Invalid orderID!");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public void vieworderbystatus(){
+        Scanner input = new Scanner(System.in);
+        System.out.printf("Enter status code: ");
+        int status = input.nextInt();
+        try (
+                Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
+                Statement stmt = conn.createStatement();
+        ) {
+            String sqlSelect = "SELECT * FROM orders where status="+status;
+            rset = stmt.executeQuery(sqlSelect);
+            if (rset.next()){
+                rsMD = rset.getMetaData();
+                int numColumn = rsMD.getColumnCount();
+                for (int i =1; i<= numColumn; i++){
+                    System.out.printf("%-25s", rsMD.getColumnName(i));
+                }
+                System.out.println();
+                for (int i=1; i<=numColumn; ++i){
+                    System.out.printf("%-25s", rset.getString(i));
+                }
+                System.out.println();
+
+            }
+            else {
+                System.out.println("Invalid status code!");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public void viewwaitingorder(){
+        try (
+                Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
+                Statement stmt = conn.createStatement();
+        ) {
+            String sqlSelect = "SELECT * FROM orders where status=2";
+            rset = stmt.executeQuery(sqlSelect);
+            if (rset.next()){
+                rsMD = rset.getMetaData();
+                int numColumn = rsMD.getColumnCount();
+                for (int i =1; i<= numColumn; i++){
+                    System.out.printf("%-25s", rsMD.getColumnName(i));
+                }
+                System.out.println();
+                for (int i=1; i<=numColumn; ++i){
+                    System.out.printf("%-25s", rset.getString(i));
+                }
+                System.out.println();
+
+            }
+            else {
+                System.out.println("No order to view!");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public void viewpackedorder(){
+        try (
+                Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
+                Statement stmt = conn.createStatement();
+        ) {
+            String sqlSelect = "SELECT * FROM orders where status=3";
+            rset = stmt.executeQuery(sqlSelect);
+            if (rset.next()){
+                rsMD = rset.getMetaData();
+                int numColumn = rsMD.getColumnCount();
+                for (int i =1; i<= numColumn; i++){
+                    System.out.printf("%-25s", rsMD.getColumnName(i));
+                }
+                System.out.println();
+                for (int i=1; i<=numColumn; ++i){
+                    System.out.printf("%-25s", rset.getString(i));
+                }
+                System.out.println();
+
+            }
+            else {
+                System.out.println("No order to view!");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public void viewdeliveryorder(){
+        try (
+                Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
+                Statement stmt = conn.createStatement();
+        ) {
+            String sqlSelect = "SELECT * FROM orders where status=4";
+            rset = stmt.executeQuery(sqlSelect);
+            if (rset.next()){
+                rsMD = rset.getMetaData();
+                int numColumn = rsMD.getColumnCount();
+                for (int i =1; i<= numColumn; i++){
+                    System.out.printf("%-25s", rsMD.getColumnName(i));
+                }
+                System.out.println();
+                for (int i=1; i<=numColumn; ++i){
+                    System.out.printf("%-25s", rset.getString(i));
+                }
+                System.out.println();
+
+            }
+            else {
+                System.out.println("No order to view!");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public void viewdeliveredorder(){
+        try (
+                Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
+                Statement stmt = conn.createStatement();
+        ) {
+            String sqlSelect = "SELECT * FROM orders where status=5";
+            rset = stmt.executeQuery(sqlSelect);
+            if (rset.next()){
+                rsMD = rset.getMetaData();
+                int numColumn = rsMD.getColumnCount();
+                for (int i =1; i<= numColumn; i++){
+                    System.out.printf("%-25s", rsMD.getColumnName(i));
+                }
+                System.out.println();
+                for (int i=1; i<=numColumn; ++i){
+                    System.out.printf("%-25s", rset.getString(i));
+                }
+                System.out.println();
+
+            }
+            else {
+                System.out.println("No order to view!");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public void viewcanceledorder(){
+        try (
+                Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
+                Statement stmt = conn.createStatement();
+        ) {
+            String sqlSelect = "SELECT * FROM orders where status=0";
+            rset = stmt.executeQuery(sqlSelect);
+            if (rset.next()){
+                rsMD = rset.getMetaData();
+                int numColumn = rsMD.getColumnCount();
+                for (int i =1; i<= numColumn; i++){
+                    System.out.printf("%-25s", rsMD.getColumnName(i));
+                }
+                System.out.println();
+                for (int i=1; i<=numColumn; ++i){
+                    System.out.printf("%-25s", rset.getString(i));
+                }
+                System.out.println();
+
+            }
+            else {
+                System.out.println("No order to view!");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 
-        public static void main(String[] args) throws InterruptedException {
-        int choice;
-        boolean quit = false;
-        Scanner input = new Scanner(System.in);
+    public static void main(String[] args){
+        bookstore b1 = new bookstore();
+            int choice;
+            boolean quit = false;
+            Scanner input = new Scanner(System.in);
             while (!quit){
-                System.out.println("1- login\n" +
-                        "2- Register\n" +
-                        "3- Quit");
+                System.out.println("1- Top 10 newest book\n" +
+                        "2- Top 100 selled book\n" +
+                        "3- Search book by category\n" +
+                        "4- Search book by author name\n" +
+                        "5- Search book by ID\n" +
+                        "6- View 30 new order\n" +
+                        "7- View order by customer\n" +
+                        "8- View order by orderID\n" +
+                        "9- View order by status code\n" +
+                        "10-View waiting order\n" +
+                        "11-View packed order\n" +
+                        "12-View delivery order\n" +
+                        "13-View delivered order\n" +
+                        "14-View canceled order\n" +
+                        "15-Exit");
                 System.out.printf("Your choice: ");
                 choice = input.nextInt();
                 switch (choice){
                     case 1:
-                        login();
+                        b1.top10newbook();
                         break;
                     case 2:
-                        memberRegist();
+                        b1.top100selled();
                         break;
                     case 3:
-                        quit =  true;
+                        b1.searchbycategory();
+                        break;
+                    case 4:
+                        b1.searchbyauthor();
+                        break;
+                    case 5:
+                        b1.searchbyid();
+                        break;
+                    case 6:
+                        b1.viewneworder();
+                        break;
+                    case 7:
+                        b1.vieworderbycustomer();
+                        break;
+                    case 8:
+                        b1.vieworderbyid();
+                        break;
+                    case 9:
+                        b1.vieworderbystatus();
+                        break;
+                    case 10:
+                        b1.viewwaitingorder();
+                        break;
+                    case 11:
+                        b1.viewpackedorder();
+                        break;
+                    case 12:
+                        b1.viewdeliveryorder();
+                        break;
+                    case 13:
+                        b1.viewdeliveredorder();
+                        break;
+                    case 14:
+                        b1.viewcanceledorder();
+                        break;
+                    case 15:
+                        quit = true;
                         break;
                 }
             }
+
     }
 }
