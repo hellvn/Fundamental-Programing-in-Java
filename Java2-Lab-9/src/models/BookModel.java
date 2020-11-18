@@ -1,6 +1,6 @@
 package models;
 
-public class books {
+public class BookModel {
     private int bookID;
     private String title;
     private String author;
@@ -11,7 +11,7 @@ public class books {
     private String created;
     private String updated;
 
-    public books(int bookID, String title, String author, int published, int qty, float price, int status, String created, String updated) {
+    public BookModel(int bookID, String title, String author, int published, int qty, float price, int status, String created, String updated) {
         this.bookID = bookID;
         this.title = title;
         this.author = author;
@@ -23,7 +23,7 @@ public class books {
         this.updated = updated;
     }
 
-    public books(int bookID, String title, String author, int published, int qty, float price) {
+    public BookModel(int bookID, String title, String author, int published, int qty, float price) {
         this.bookID = bookID;
         this.title = title;
         this.author = author;
@@ -32,7 +32,7 @@ public class books {
         this.price = price;
 
     }
-    public books(){
+    public BookModel(){
         bookID=0;
         title="";
         author="";

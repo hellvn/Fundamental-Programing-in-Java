@@ -1,30 +1,39 @@
 package views;
 
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.util.ArrayList;
-import java.util.List;
-import models.*;
+import controllers.BookControler;
+import controllers.CartControler;
+import models.CartModel;
+
 import java.util.Scanner;
 
-public class cartview {
-    private static final String connURL = "jdbc:mysql://localhost:3306/ebookstore";
-    private static final String connUser = "root";
-    private static final String connPass = "";
-    private static ResultSet rset;
-    private static ResultSetMetaData rsMD;
-    String username;
+public class CartView {
     Scanner input = new Scanner(System.in);
+    BookControler bc1 = new BookControler();
+    CartControler cartControler = new CartControler();
+    public int BookID, Amount;
+    public void AddToCart(){
+        char choice = 'n';
+        do {
+            System.out.printf("Enter Book ID: ");
+            BookID = input.nextInt();
+            if (BookID != bc1.bookID)
+            System.out.printf("Enter Amount: ");
+            Amount = input.nextInt();
+            if (Amount>bc1.qty){
+                System.out.println("Book qty is not enough");
+            }
+            else {
+                CartModel newItem = new CartModel(BookID, Amount);
+                if (cartControler.addToCart(newItem)) {
+                    System.out.println("Book added to cart!");
+                } else {
+                    System.out.println("Please take another book");
+                }
+                System.out.printf("Buy more book? (Y/N): ");
+                choice = input.next().charAt(0);
+            }
+        }
+        while (choice == 'y');
 
-    public List<cart> addtocart(user user){
-        List<cart> items = new ArrayList<>();
-        cart c1 = new cart();
-        System.out.printf("Enter bookID: ");
-        int bookID = input.nextInt();
-        c1.setBookID(bookID);
-        System.out.printf("Amount: ");
-        int amount = input.nextInt();
-        c1.setAmount(amount);
-        return items;
     }
 }

@@ -1,45 +1,39 @@
 package controllers;
 
+import com.mysql.cj.MysqlConnection;
+import models.BookModel;
+import models.CartModel;
+import views.CartView;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import models.*;
-
-
-public class cartcontroler {
+public class CartControler {
     private static final String connURL = "jdbc:mysql://localhost:3306/ebookstore";
     private static final String connUser = "root";
     private static final String connPass = "";
-    private static ResultSet rset;
+    private Statement stmt;
+    private PreparedStatement pStmt;
+    private ResultSet rset;
+    private ResultSetMetaData rsMd;
+    List<CartModel> cartModelList = new ArrayList<>();
 
-    public cart loadcart(books books){
-        cart obj = new cart();
-        try (
-                Connection conn = DriverManager.getConnection(connURL, connUser, connPass);
-                Statement stmt = conn.createStatement();
-                ){
-            String select = "Select * from books where bookID = "+books.getBookID();
-            ResultSet rset = stmt.executeQuery(select);
-            System.out.printf("%-30s%-30s%-30s%-30s%-30s","bookID","title","price","qty","discount");
-            System.out.println();
-            int row = 0;
-            int id = 0;
-            String title = null;
-            double price = 0;
-            while (rset.next()) {
-                id = rset.getInt("bookID");
-                title = rset.getString("title");
-                price = rset.getDouble("price");
-                row++;
+    public boolean addToCart(CartModel item){
+        if(findItem(item.getBookID())>= 0){
+            System.out.println("This book already added!");
+            return false;
+        }
+        cartModelList.add(item);
+        return true;
+    }
+    private int findItem(int BookID){
+        for (int i=0; i< this.cartModelList.size(); i++){
+            CartModel cartModel = this.cartModelList.get(i);
+            if (cartModel.getBookID() == BookID){
+                return i;
             }
-            if(row==0){
-                System.out.println("No book with entered ID");
-                return null;
-            }else
-                obj = new cart(id, books.getQty());
         }
-        catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        return obj;
+        return -1;
     }
 }
